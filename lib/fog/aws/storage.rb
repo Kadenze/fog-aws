@@ -454,9 +454,9 @@ module Fog
         end
 
         def setup_credentials(options)
-          @aws_access_key_id = options[:aws_access_key_id]
-          @aws_secret_access_key = options[:aws_secret_access_key]
-          @aws_session_token     = options[:aws_session_token]
+          @aws_access_key_id = options[:aws_access_key_id].call rescue options[:aws_access_key_id]
+          @aws_secret_access_key = options[:aws_secret_access_key].call rescue options[:aws_secret_access_key]
+          @aws_session_token     = options[:aws_session_token].call rescue options[:aws_session_token]
           @aws_credentials_expire_at = options[:aws_credentials_expire_at]
 
           @signer = Fog::AWS::SignatureV4.new( @aws_access_key_id, @aws_secret_access_key, @region, 's3')
@@ -525,9 +525,9 @@ module Fog
 
 
         def setup_credentials(options)
-          @aws_access_key_id     = options[:aws_access_key_id]
-          @aws_secret_access_key = options[:aws_secret_access_key]
-          @aws_session_token     = options[:aws_session_token]
+          @aws_access_key_id = options[:aws_access_key_id].call rescue options[:aws_access_key_id]
+          @aws_secret_access_key = options[:aws_secret_access_key].call rescue options[:aws_secret_access_key]
+          @aws_session_token     = options[:aws_session_token].call rescue options[:aws_session_token]
           @aws_credentials_expire_at = options[:aws_credentials_expire_at]
 
           if @signature_version == 4
